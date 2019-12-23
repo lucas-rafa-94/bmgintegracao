@@ -17,7 +17,7 @@ public class Transformer {
         List<ObtemProdutosDeSeguroModel> list = new ArrayList<>();
 
         if(obtemProdutosDeSeguroRetorno.getTiposDeSeguro() != null){
-            for (int i = 0; obtemProdutosDeSeguroRetorno.getTiposDeSeguro().length < i; i++){
+            for (int i = 0; obtemProdutosDeSeguroRetorno.getTiposDeSeguro().length > i; i++){
                 ObtemProdutosDeSeguroModel obtemProdutosDeSeguroModel = new ObtemProdutosDeSeguroModel();
 
                 obtemProdutosDeSeguroModel.setId(cpf + Integer.toString(obtemProdutosDeSeguroRetorno.getTiposDeSeguro()[i].getCodigoTipoSeguro()));

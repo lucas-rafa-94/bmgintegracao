@@ -1,6 +1,7 @@
 package com.soap.bmgintegracao.service;
 
 import com.soap.bmgintegracao.com.bmg.econsig.webservice.*;
+import com.soap.bmgintegracao.model.CpfBaseBmgModel;
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
 
@@ -23,14 +24,16 @@ public class BmgCaller {
     @Value("${bmg.password}")
     private String password;
 
-    public LimiteSaqueRetorno buscarLimiteSaque(String cpf){
+    public LimiteSaqueRetorno buscarLimiteSaque(CpfBaseBmgModel cpfBaseBmgModel){
 
         LimiteSaqueRetorno limiteSaqueRetorno = new LimiteSaqueRetorno();
 
         try {
             LimiteSaqueParameter limiteSaqueParameter = new LimiteSaqueParameter();
 
-            limiteSaqueParameter.setCpf(cpf);
+            limiteSaqueParameter.setCpf(cpfBaseBmgModel.getNumeroDocumento());
+            limiteSaqueParameter.setCodigoEntidade(Integer.parseInt(cpfBaseBmgModel.getCodigoEntidade()));
+            limiteSaqueParameter.setMatricula(cpfBaseBmgModel.getMatricula());
             limiteSaqueParameter.setSenha(password);
             limiteSaqueParameter.setLogin(login);
 
@@ -58,7 +61,7 @@ public class BmgCaller {
 
             limiteSaqueRetorno = (LimiteSaqueRetorno) call.invoke("http://webservice.econsig.bmg.com", "buscarLimiteSaque", params );
 
-            logger.info("buscarLimiteSaque: '" + cpf + "'");
+            logger.error("buscarLimiteSaque: '" + cpfBaseBmgModel.getNumeroDocumento() + "'");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,14 +69,16 @@ public class BmgCaller {
         return limiteSaqueRetorno;
     }
 
-    public ValidaSeJaPossuiContaCartaoRetorno validaSeJaPossuiContaCartao(String cpf){
+    public ValidaSeJaPossuiContaCartaoRetorno validaSeJaPossuiContaCartao(CpfBaseBmgModel cpfBaseBmgModel){
 
         ValidaSeJaPossuiContaCartaoRetorno validaSeJaPossuiContaCartaoRetorno = new ValidaSeJaPossuiContaCartaoRetorno();
 
         try {
             ValidaSeJaPossuiContaCartaoParameter validaSeJaPossuiContaCartaoParameter = new ValidaSeJaPossuiContaCartaoParameter();
 
-            validaSeJaPossuiContaCartaoParameter.setCpf(cpf);
+            validaSeJaPossuiContaCartaoParameter.setCpf(cpfBaseBmgModel.getNumeroDocumento());
+            validaSeJaPossuiContaCartaoParameter.setCodigoEntidade(Integer.parseInt(cpfBaseBmgModel.getCodigoEntidade()));
+            validaSeJaPossuiContaCartaoParameter.setMatricula(cpfBaseBmgModel.getMatricula());
             validaSeJaPossuiContaCartaoParameter.setSenha(password);
             validaSeJaPossuiContaCartaoParameter.setLogin(login);
 
@@ -101,7 +106,7 @@ public class BmgCaller {
 
             validaSeJaPossuiContaCartaoRetorno = (ValidaSeJaPossuiContaCartaoRetorno) call.invoke("http://webservice.econsig.bmg.com", "validaSeJaPossuiContaCartao", params );
 
-            logger.info("buscarLimiteSaque: '" + cpf + "'");
+            logger.error("validaSeJaPossuiContaCartao: '" + cpfBaseBmgModel.getNumeroDocumento() + "'");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -109,14 +114,15 @@ public class BmgCaller {
         return validaSeJaPossuiContaCartaoRetorno;
     }
 
-    public ObtemProdutosDeSeguroRetorno obtemProdutosDeSeguroRetorno(String cpf){
+    public ObtemProdutosDeSeguroRetorno obtemProdutosDeSeguroRetorno(CpfBaseBmgModel cpfBaseBmgModel){
 
         ObtemProdutosDeSeguroRetorno obtemProdutosDeSeguroRetorno = new ObtemProdutosDeSeguroRetorno();
 
         try {
             ObtemProdutosDeSeguroParameter obtemProdutosDeSeguroParameter = new ObtemProdutosDeSeguroParameter();
 
-            obtemProdutosDeSeguroParameter.setCpf(cpf);
+            obtemProdutosDeSeguroParameter.setCpf(cpfBaseBmgModel.getNumeroDocumento());
+            obtemProdutosDeSeguroParameter.setCodigoEntidade(Integer.parseInt(cpfBaseBmgModel.getCodigoEntidade()));
             obtemProdutosDeSeguroParameter.setSenha(password);
             obtemProdutosDeSeguroParameter.setLogin(login);
 
@@ -144,7 +150,7 @@ public class BmgCaller {
 
             obtemProdutosDeSeguroRetorno = (ObtemProdutosDeSeguroRetorno) call.invoke("http://webservice.econsig.bmg.com", "obtemProdutosDeSeguro", params );
 
-            logger.info("buscarLimiteSaque: '" + cpf + "'");
+            logger.info("obtemProdutosDeSeguroRetorno: '" + cpfBaseBmgModel.getNumeroDocumento() + "'");
         } catch (Exception e) {
             e.printStackTrace();
         }
