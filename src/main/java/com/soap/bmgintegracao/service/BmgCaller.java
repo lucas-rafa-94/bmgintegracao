@@ -3,13 +3,19 @@ package com.soap.bmgintegracao.service;
 import com.soap.bmgintegracao.com.bmg.econsig.webservice.*;
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.xml.namespace.QName;
 
 
+
 @org.springframework.stereotype.Service
 public class BmgCaller {
+
+    Logger logger = LoggerFactory.getLogger(BmgCaller.class);
 
     @Value("${bmg.user}")
     private String login;
@@ -52,7 +58,7 @@ public class BmgCaller {
 
             limiteSaqueRetorno = (LimiteSaqueRetorno) call.invoke("http://webservice.econsig.bmg.com", "buscarLimiteSaque", params );
 
-            System.out.println("buscarLimiteSaque, '" + limiteSaqueRetorno.getMensagemDeErro() + "'");
+            logger.info("buscarLimiteSaque: '" + cpf + "'");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -95,7 +101,7 @@ public class BmgCaller {
 
             validaSeJaPossuiContaCartaoRetorno = (ValidaSeJaPossuiContaCartaoRetorno) call.invoke("http://webservice.econsig.bmg.com", "validaSeJaPossuiContaCartao", params );
 
-            System.out.println("validaSeJaPossuiContaCartao , '" + validaSeJaPossuiContaCartaoRetorno.getMensagemDeErro() + "'");
+            logger.info("buscarLimiteSaque: '" + cpf + "'");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -138,7 +144,7 @@ public class BmgCaller {
 
             obtemProdutosDeSeguroRetorno = (ObtemProdutosDeSeguroRetorno) call.invoke("http://webservice.econsig.bmg.com", "obtemProdutosDeSeguro", params );
 
-            System.out.println("obtemProdutosDeSeguroRetorno , '" + obtemProdutosDeSeguroRetorno.getMensagemDeErro() + "'");
+            logger.info("buscarLimiteSaque: '" + cpf + "'");
         } catch (Exception e) {
             e.printStackTrace();
         }
