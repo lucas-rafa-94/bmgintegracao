@@ -1,6 +1,7 @@
 package com.soap.bmgintegracao.service;
 
-import com.soap.bmgintegracao.com.bmg.econsig.webservice.LimiteSaqueRetorno;
+
+import com.soap.bmgintegracao.br.bmg.econsig.webservice.LimiteSaqueRetorno;
 import com.soap.bmgintegracao.com.bmg.econsig.webservice.ObtemProdutosDeSeguroRetorno;
 import com.soap.bmgintegracao.com.bmg.econsig.webservice.ValidaSeJaPossuiContaCartaoRetorno;
 import com.soap.bmgintegracao.model.BuscarLimiteSaqueModel;
@@ -46,23 +47,46 @@ public class Transformer {
         return list;
     }
 
-    public BuscarLimiteSaqueModel buscarLimiteSaqueRetorno2Model(LimiteSaqueRetorno limiteSaqueRetorno, String cpf){
+    public List<BuscarLimiteSaqueModel> buscarLimiteSaqueRetorno2Model(List<LimiteSaqueRetorno>list, String cpf){
 
-        BuscarLimiteSaqueModel buscarLimiteSaqueModel = new BuscarLimiteSaqueModel();
+        List<BuscarLimiteSaqueModel> limiteSaqueModelList = new ArrayList<>();
 
-        buscarLimiteSaqueModel.setNumeroDocumento(cpf);
-        buscarLimiteSaqueModel.setMensagemDeErro(limiteSaqueRetorno.getMensagemDeErro());
-        buscarLimiteSaqueModel.setExcecaoDeRegraDeNegocio("false");
-        buscarLimiteSaqueModel.setExcecaoGenerica("false");
-        buscarLimiteSaqueModel.setLimiteCartao(String.valueOf(limiteSaqueRetorno.getLimiteCartao()));
-        buscarLimiteSaqueModel.setPermiteAberturaContaPagamento("false");
-        buscarLimiteSaqueModel.setValorMargem(String.valueOf(limiteSaqueRetorno.getValorMargem()));
-        buscarLimiteSaqueModel.setValorSaqueMaximo(String.valueOf(limiteSaqueRetorno.getValorSaqueMaximo()));
-        buscarLimiteSaqueModel.setValorSaqueMinimo(String.valueOf(limiteSaqueRetorno.getValorSaqueMinimo()));
-        buscarLimiteSaqueModel.setValorSaqueParaMargemComplementarComAgregacaoDeMargem(String.valueOf(limiteSaqueRetorno.getValorSaqueParaMargemComplementarComAgregacaoDeMargem()));
+        for(int i = 0; list.size() > i; i++){
+
+            BuscarLimiteSaqueModel buscarLimiteSaqueModel = new BuscarLimiteSaqueModel();
+
+            buscarLimiteSaqueModel.setId(cpf + i);
+
+            if(i == 0){
+                buscarLimiteSaqueModel.setDescricaoTipoSaque("SaqueAutorizado");
+            }else if(i == 1){
+                buscarLimiteSaqueModel.setDescricaoTipoSaque("SaqueAutorizadoParcelado");
+            }else if(i == 2){
+                buscarLimiteSaqueModel.setDescricaoTipoSaque("SaqueAutorizadoLojista");
+            }else if(i == 3){
+                buscarLimiteSaqueModel.setDescricaoTipoSaque("SaqueAutorizadoParceladoLojista");
+            }else if(i == 4){
+                buscarLimiteSaqueModel.setDescricaoTipoSaque("SaqueAutorizadoDecimoTerceiro");
+            }
+
+            buscarLimiteSaqueModel.setNumeroDocumento(cpf);
+            buscarLimiteSaqueModel.setMensagemDeErro(list.get(i).getMensagemDeErro());
+            buscarLimiteSaqueModel.setExcecaoDeRegraDeNegocio("false");
+            buscarLimiteSaqueModel.setExcecaoGenerica("false");
+            buscarLimiteSaqueModel.setLimiteCartao(String.valueOf(list.get(i).getLimiteCartao()));
+            buscarLimiteSaqueModel.setPermiteAberturaContaPagamento("false");
+            buscarLimiteSaqueModel.setValorMargem(String.valueOf(list.get(i).getValorMargem()));
+            buscarLimiteSaqueModel.setValorSaqueMaximo(String.valueOf(list.get(i).getValorSaqueMaximo()));
+            buscarLimiteSaqueModel.setValorSaqueMinimo(String.valueOf(list.get(i).getValorSaqueMinimo()));
+            buscarLimiteSaqueModel.setValorSaqueParaMargemComplementarComAgregacaoDeMargem(String.valueOf(list.get(i).getValorSaqueParaMargemComplementarComAgregacaoDeMargem()));
+
+            limiteSaqueModelList.add(buscarLimiteSaqueModel);
+
+        }
 
 
-        return buscarLimiteSaqueModel;
+
+        return limiteSaqueModelList;
     }
 
     public ValidaSeJaPossuiContaCartaoModel validaSeJaPossuiContaCartaoRetorno2Model(ValidaSeJaPossuiContaCartaoRetorno validaSeJaPossuiContaCartaoRetorno, String cpf){

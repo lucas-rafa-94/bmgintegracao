@@ -36,7 +36,7 @@ public class Business {
         while (cpfBaseIterator.hasNext()) {
             CpfBaseBmgModel cpfBaseBmgModel = (CpfBaseBmgModel)  cpfBaseIterator.next();
             obtemProdutosDeSeguroRepository.saveAll(transformer.obtemProdutosDeSeguroRetorno2Model(bmgCaller.obtemProdutosDeSeguroRetorno(cpfBaseBmgModel),cpfBaseBmgModel.getNumeroDocumento()));
-            buscarLimiteSaqueRepository.save(transformer.buscarLimiteSaqueRetorno2Model(bmgCaller.buscarLimiteSaque(cpfBaseBmgModel),cpfBaseBmgModel.getNumeroDocumento()));
+            buscarLimiteSaqueRepository.saveAll(transformer.buscarLimiteSaqueRetorno2Model(bmgCaller.buscarLimiteSaque(cpfBaseBmgModel),cpfBaseBmgModel.getNumeroDocumento()));
             validaSeJaPossuiContaCartaoRepository.save(transformer.validaSeJaPossuiContaCartaoRetorno2Model(bmgCaller.validaSeJaPossuiContaCartao(cpfBaseBmgModel),cpfBaseBmgModel.getNumeroDocumento()));
         }
     }

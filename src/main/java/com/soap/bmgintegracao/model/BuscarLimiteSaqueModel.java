@@ -9,6 +9,8 @@ import javax.persistence.Table;
 public class BuscarLimiteSaqueModel {
 
     @Id
+    private String id;
+
     private String numeroDocumento;
 
     private String excecaoDeRegraDeNegocio;
@@ -27,9 +29,13 @@ public class BuscarLimiteSaqueModel {
 
     private String valorSaqueMinimo;
 
+    private String descricaoTipoSaque;
+
     private String valorSaqueParaMargemComplementarComAgregacaoDeMargem;
 
-    public BuscarLimiteSaqueModel(String numeroDocumento, String excecaoDeRegraDeNegocio, String excecaoGenerica, String limiteCartao, String mensagemDeErro, String permiteAberturaContaPagamento, String valorMargem, String valorSaqueMaximo, String valorSaqueMinimo, String valorSaqueParaMargemComplementarComAgregacaoDeMargem) {
+    public BuscarLimiteSaqueModel(String id, String descricaoTipoSaque, String numeroDocumento, String excecaoDeRegraDeNegocio, String excecaoGenerica, String limiteCartao, String mensagemDeErro, String permiteAberturaContaPagamento, String valorMargem, String valorSaqueMaximo, String valorSaqueMinimo, String valorSaqueParaMargemComplementarComAgregacaoDeMargem) {
+        this.descricaoTipoSaque = descricaoTipoSaque;
+        this.id = id;
         this.numeroDocumento = numeroDocumento;
         this.excecaoDeRegraDeNegocio = excecaoDeRegraDeNegocio;
         this.excecaoGenerica = excecaoGenerica;
@@ -49,6 +55,14 @@ public class BuscarLimiteSaqueModel {
         return numeroDocumento;
     }
 
+    public String getDescricaoTipoSaque() {
+        return descricaoTipoSaque;
+    }
+
+    public void setDescricaoTipoSaque(String descricaoTipoSaque) {
+        this.descricaoTipoSaque = descricaoTipoSaque;
+    }
+
     public void setNumeroDocumento(String numeroDocumento) {
         this.numeroDocumento = numeroDocumento;
     }
@@ -59,6 +73,14 @@ public class BuscarLimiteSaqueModel {
 
     public void setExcecaoDeRegraDeNegocio(String excecaoDeRegraDeNegocio) {
         this.excecaoDeRegraDeNegocio = excecaoDeRegraDeNegocio;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getExcecaoGenerica() {
